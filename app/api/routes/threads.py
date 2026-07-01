@@ -1,6 +1,10 @@
 from fastapi import APIRouter, HTTPException
 from app.services.retriever import get_document_metadata
-from app.models.schemas import ThreadListResponse, ThreadSummary
+from app.models.schemas import (
+    ThreadListResponse,
+    ThreadSummary, 
+    ThreadMessagesResponse,
+)
 from app.services.thread import (
     retrieve_all_threads,
     thread_document_metadata,
@@ -24,7 +28,7 @@ def list_threads():
     return ThreadListResponse(threads=threads)
 
 
-@router.get("/{thread_id}/messages")
+@router.get("/{thread_id}/messages", response_model=ThreadMessagesResponse)
 def get_thread_messages(thread_id: str):
     # Retrieve the chat history for the thread
     messages = get_messages(thread_id)  # Replace with your implementation
@@ -32,8 +36,8 @@ def get_thread_messages(thread_id: str):
     if messages is None:
         raise HTTPException(status_code=404, detail="Thread not found")
 
-    return {
-        "thread_id": thread_id,
-        "messages": messages,
-        "document_metadata": get_document_metadata(thread_id),
-    }
+    return ThreadMessagesResponse(
+        thread_id=thread_id,
+        messages=messages,
+        document_metadata=get_document_metadata(thread_id=thread_id)
+    )
