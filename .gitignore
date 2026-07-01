@@ -1,9 +1,11 @@
 __pycache__/
 *.pyc
 .env
-database/
 .venv/
 venv/
 *.egg-info/
 .pytest_cache/
 .DS_Store
+
+# Ignore everything inside the root database directory
+/database/
