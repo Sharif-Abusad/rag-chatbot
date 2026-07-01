@@ -22,16 +22,19 @@ settings = get_settings()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info("Initializing database...")
-    initialize_database()
+    try:
+        logger.info("Initializing database...")
+        initialize_database()
 
-    logger.info("Compiling LangGraph workflow...")
-    app.state.chatbot = build_graph()
+        logger.info("Building graph...")
+        app.state.chatbot = build_graph()
 
-    logger.info("%s startup complete.", settings.app_name)
-    yield
-    logger.info("%s shutting down.", settings.app_name)
+        logger.info("Startup complete.")
+        yield
 
+    except Exception:
+        logger.exception("Startup failed")
+        raise
 
 app = FastAPI(
     title=settings.app_name,
