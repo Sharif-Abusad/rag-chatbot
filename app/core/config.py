@@ -26,8 +26,9 @@ class Settings(BaseSettings):
 
     # Embeddings
     # embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
-
+    embedding_model: str = "gemini-embedding-001"
     google_api_key: str
+
     # Tools
     alpha_vantage_api_key: str
 

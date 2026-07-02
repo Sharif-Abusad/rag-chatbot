@@ -21,8 +21,9 @@ llm = ChatGroq(
 # embeddings = HuggingFaceEmbeddings(
 #     model_name=settings.embedding_model,
 # )
+
 # Embeddings model
 embeddings = GoogleGenerativeAIEmbeddings(
-    model="gemini-embedding-001",
+    model=settings.embedding_model,
     api_key=settings.google_api_key,
 )
