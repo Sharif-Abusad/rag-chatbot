@@ -25,8 +25,9 @@ class Settings(BaseSettings):
     groq_model: str = "llama-3.3-70b-versatile"
 
     # Embeddings
-    embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
+    # embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
 
+    google_api_key: str
     # Tools
     alpha_vantage_api_key: str
 

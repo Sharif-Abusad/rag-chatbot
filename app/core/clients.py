@@ -9,7 +9,7 @@ from langchain_groq import ChatGroq
 from langchain_huggingface import HuggingFaceEmbeddings
 
 from app.core.config import get_settings
-
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 settings = get_settings()
 
 llm = ChatGroq(
@@ -18,6 +18,11 @@ llm = ChatGroq(
     api_key=settings.groq_api_key,
 )
 
-embeddings = HuggingFaceEmbeddings(
-    model_name=settings.embedding_model,
+# embeddings = HuggingFaceEmbeddings(
+#     model_name=settings.embedding_model,
+# )
+# Embeddings model
+embeddings = GoogleGenerativeAIEmbeddings(
+    model="gemini-embedding-001",
+    api_key=settings.google_api_key,
 )
