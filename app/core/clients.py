@@ -6,7 +6,6 @@ spin up model clients (useful for tests / scripts).
 """
 
 from langchain_groq import ChatGroq
-from langchain_huggingface import HuggingFaceEmbeddings
 
 from app.core.config import get_settings
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
@@ -17,10 +16,6 @@ llm = ChatGroq(
     temperature=0,
     api_key=settings.groq_api_key,
 )
-
-# embeddings = HuggingFaceEmbeddings(
-#     model_name=settings.embedding_model,
-# )
 
 # Embeddings model
 embeddings = GoogleGenerativeAIEmbeddings(
