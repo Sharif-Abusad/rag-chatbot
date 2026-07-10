@@ -176,7 +176,7 @@ FastAPI auto-generates comprehensive Swagger UI at `/docs`. Developers can explo
 | **Stock Data** | Alpha Vantage REST API |
 | **Persistence** | SQLite + LangGraph `SqliteSaver` |
 | **Config** | Pydantic-Settings (`.env` → typed Python objects) |
-| **Deployment** | Docker, Fly.io, Streamlit Community Cloud |
+| **Deployment** | Docker, Render.io, Streamlit Community Cloud |
 
 ---
 
@@ -289,8 +289,6 @@ All variables are managed by `app/core/config.py` via Pydantic-Settings. Copy `.
 | `CORS_ORIGINS` | | `["*"]` | Allowed origins — use exact frontend URL in production |
 | `ENVIRONMENT` | | `development` | `development` or `production` |
 | `DOCMIND_API_URL` | ✅ (frontend) | `http://localhost:8000` | Backend URL read by the Streamlit client |
-
-> ⚠️ **Never commit `.env`.** It is already in `.gitignore`. In production, use Fly.io secrets or Streamlit Cloud secrets.
 
 ---
 
