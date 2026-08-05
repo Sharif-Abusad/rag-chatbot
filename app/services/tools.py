@@ -17,8 +17,10 @@ settings = get_settings()
 @tool
 def calculator(first_num: float, second_num: float, operation: str) -> dict:
     """
-    Perform a basic arithmetic operation on two numbers.
-    Supported operations: add, sub, mul, div
+    Perform basic arithmetic on two numbers.
+    Supported operations: add, sub, mul, div.
+    Parameters: first_num (float), second_num (float), operation (str).
+    Do NOT pass thread_id to this tool.
     """
     try:
         if operation == "add":
@@ -40,15 +42,17 @@ def calculator(first_num: float, second_num: float, operation: str) -> dict:
             "operation": operation,
             "result": result,
         }
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:
         return {"error": str(e)}
 
 
 @tool
 def rag_tool(query: str, thread_id: Optional[str] = None) -> dict:
     """
-    Retrieve relevant information from the uploaded PDF for this chat thread.
-    Always include the thread_id when calling this tool.
+    Retrieve relevant information from the PDF uploaded for this chat thread.
+    Use this tool ONLY for questions about the uploaded document.
+    Parameters: query (str), thread_id (str).
+    You MUST pass thread_id when calling this tool.
     """
     retriever = get_retriever(thread_id=thread_id)
     if retriever is None:
@@ -62,15 +66,16 @@ def rag_tool(query: str, thread_id: Optional[str] = None) -> dict:
         "query": query,
         "context": [doc.page_content for doc in result],
         "metadata": [doc.metadata for doc in result],
-        "source_file": rm.get_metadata(thread_id).get("filename"),
+        "source_file": rm.get_metadata(thread_id).get("filename") if thread_id else None,
     }
 
 
 @tool
 def get_stock_price(symbol: str) -> dict:
     """
-    Fetch latest stock price for a given symbol (e.g. 'AAPL', 'TSLA')
-    using Alpha Vantage.
+    Fetch the latest stock price for a given ticker symbol (e.g. 'AAPL', 'TSLA').
+    Parameters: symbol (str) only.
+    Do NOT pass thread_id or any other argument to this tool.
     """
     url = "https://www.alphavantage.co/query"
     params = {
@@ -94,11 +99,13 @@ _ddg = DuckDuckGoSearchRun(region="us-en")
 def web_search(query: str) -> str:
     """
     Search the web for current information using DuckDuckGo.
-    Use this for news, recent events, or any question requiring up-to-date information.
+    Use for news, recent events, or anything requiring up-to-date internet data.
+    Parameters: query (str) only.
+    Do NOT pass thread_id or any other argument to this tool.
     """
     try:
         return _ddg.run(query)
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:
         return f"Search failed: {e}"
 
 
