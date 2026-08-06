@@ -114,6 +114,17 @@ FastAPI auto-generates comprehensive Swagger UI at `/docs`. Developers can explo
 
 </details>
 
+<details>
+<summary><b>📊 LangSmith Observability</b></summary>
+<br/>
+<p align="center">
+  <img src="images/langsmith-observability.png" width="900" alt="LangSmith Observability Dashboard"/>
+</p>
+
+Monitor every AI interaction with **LangSmith**. View execution traces, inspect each agent step, analyze LLM calls, measure latency and token usage, debug failures, and evaluate workflow performance through a centralized observability dashboard.
+
+</details>
+
 ---
 
 ## 🏗 Architecture
